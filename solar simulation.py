@@ -4,7 +4,7 @@ screen = Screen()
 screen.bgcolor('#000000')
 G = 6.67408e-11 # gravitational constant (m^3 kg^-1 s^-2)
 AU = 149.6e9    # Astronomical unit (m)
-scale = 50 / AU
+#scale = 500 / AU
 '''these are all the attributes that each planetary body will have:
 -A name
 -a mass (kg)
@@ -49,12 +49,14 @@ def update_info(step,bodies):
             print() #empty brackets are effectively '\n'
                    
 def loop(bodies):
+   
     for body in bodies:
         body.hideturtle()
         body.penup()
     step = 1
     time = 24 * 60 * 60 # a day = a second in this program
-
+    scale = float(input('What scale would you like to use? ')) # taking user input for the scale
+    scale /= AU
     while True:     # pythons version of a 'forever loop'
         
         update_info(step,bodies)
@@ -85,7 +87,7 @@ def loop(bodies):
             body.posiy += body.veloy * time
             
             body.goto(body.posix * scale,body.posiy * scale)
-            body.dot(2) 
+            body.dot(3) 
           
 #this is the main part of the program. involves assigning data to the attibutes of the class for each body
 def main():     #allows new bodies to be added with out the need to add new code.
@@ -112,7 +114,7 @@ def main():     #allows new bodies to be added with out the need to add new code
     venus.name = 'Venus'
     venus.mass = 4.867e24
     venus.velox = 0
-    venus.veloy = 35000
+    venus.veloy = -35000
     venus.posix = -0.723 * AU
     venus.posiy = 0
     venus.pencolor('#FF9400')
@@ -124,7 +126,7 @@ def main():     #allows new bodies to be added with out the need to add new code
     mercury.veloy = 47400
     mercury.posix = -0.387 * AU
     mercury.posiy = 0
-    mercury.pencolor('#F1E2FF')
+    mercury.pencolor('#C672FF')
 
     mars = body()
     mars.name = 'Mars'
@@ -152,6 +154,16 @@ def main():     #allows new bodies to be added with out the need to add new code
     saturn.posix = -9.582 * AU
     saturn.posiy = 0
     saturn.pencolor('#DDD452')
+
+    moon = body()
+    moon.name = 'Moon'
+    moon.mass = 7.35e22
+    moon.velox = 0
+    moon.veloy = 28783
+    moon.posix = -1.00256955 * AU
+    moon.posiy = 0
+    moon.pencolor('#BABABA')
+
 
 ##    x = body()
 ##    x.name = 'X'
@@ -189,18 +201,10 @@ def main():     #allows new bodies to be added with out the need to add new code
 ##    i.posiy = 0
 ##    i.pencolor('#FFFFFF')'''
 ##
-##
-##    
-##    '''
-##    #earth is performing the function 'attractionforce' and is using the object 'sun'
-##    fx, fy = earth.attractionforce(sun)
-##
-##    print(fx)
-##    print(fy)
-##    '''
-##
 
-    bodies = [sun, venus, earth, mercury, mars, jupiter, saturn,] # a list of all the bodies and their respective properties
+    bodies = [sun, mercury, venus, earth, moon, mars, jupiter, saturn] # a list of all the bodies and their respective properties
+
+    
     
     loop(bodies)
     
